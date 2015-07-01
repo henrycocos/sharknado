@@ -54,6 +54,7 @@ public class Controller implements ActionListener{
 						break;
 
 		case "person":  main.home.setVisible(false);
+						main.frame.add(main.person,BorderLayout.CENTER);
 			 			main.person.setVisible(true);
 						break;
 		default:

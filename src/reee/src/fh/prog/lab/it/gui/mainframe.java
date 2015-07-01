@@ -49,7 +49,6 @@ public class mainframe{
 	public void refresh(){
 		kunden.table.revalidate();
 		produkt.table.revalidate();
-		person.table.revalidate();
 	}
 
 		

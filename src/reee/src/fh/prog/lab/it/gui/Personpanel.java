@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,18 +19,13 @@ import javax.swing.JTable;
 import fh.prog.lab.it.samples.dbServices.newselect;
 
 public class Personpanel extends JPanel{
-	
 	Point klick;
+	private static final long serialVersionUID = 1L;
+	JTable table;
 	ImageIcon iconback = new ImageIcon("./lib/back-button.png");
 	JButton back = new JButton(iconback);
-	
-	JTable table;
-	private newselect select;
-	
-	public Personpanel(ActionListener listener) throws SQLException
-	{
-		select = new newselect();
-		
+	newselect select = new newselect();
+	public Personpanel(ActionListener listener) throws SQLException{
 		System.out.println("Produktpanel wurde gestartet");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
@@ -39,7 +35,6 @@ public class Personpanel extends JPanel{
 		table = new JTable(select.getData("perkus"), select.getColumnNames("perkus"));
 		add(new JScrollPane((table)));
 		table.setShowGrid(true);
-		
 		table.addMouseListener(new MouseListener(){
 
 			@Override
@@ -73,12 +68,10 @@ public class Personpanel extends JPanel{
 			}
 			
 		});
-		
-		back.setActionCommand("persback");
+
+		back.setActionCommand("proback");
 		back.addActionListener(listener);
 		add(back);
-			
-		setVisible(true);
-	}			
-
+	}
+	
 }
