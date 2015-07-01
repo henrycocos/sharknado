@@ -51,7 +51,11 @@ public class Controller implements ActionListener{
 			break;
 		case "persback": main.person.setVisible(false);
 						 main.home.setVisible(true);
-						
+						break;
+
+		case "person":  main.home.setVisible(false);
+			 			main.person.setVisible(true);
+						break;
 		default:
 			break;
 		}

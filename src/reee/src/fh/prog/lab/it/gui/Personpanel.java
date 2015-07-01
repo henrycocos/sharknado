@@ -78,7 +78,7 @@ public class Personpanel extends JPanel{
 		back.addActionListener(listener);
 		add(back);
 			
-		
+		setVisible(true);
 	}			
 
 }
