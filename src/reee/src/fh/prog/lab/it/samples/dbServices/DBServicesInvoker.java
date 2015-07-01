@@ -22,7 +22,6 @@ public class DBServicesInvoker {
 	//******************************************
 	private String urlPrefix = "jdbc:mysql://10.18.2.44";
 	private String dbName = "sharknado";
-	private String dbTableName = "Produkt";
 	private String driver = "com.mysql.jdbc.Driver";
 	private String userName = "user";
 	private String password ="programmingLab";
