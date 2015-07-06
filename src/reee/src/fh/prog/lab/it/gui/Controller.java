@@ -32,15 +32,19 @@ public class Controller implements ActionListener{
 						main.frame.add(main.produkt,BorderLayout.CENTER);
 						main.produkt.setVisible(true);
 			break;
+		case "person":  main.home.setVisible(false);
+						main.frame.add(main.person,BorderLayout.CENTER);
+						main.person.setVisible(true);
+		break;
+		case "kunden": 	main.home.setVisible(false);
+	   					main.frame.add(main.kunden,BorderLayout.CENTER);
+	   					main.kunden.setVisible(true);
+	   		break;
 		case "exit":	System.exit(0);
 			break;
 		case "refresh": main.frame.setVisible(false);
 						main.frame.setVisible(true);
 						main.refresh();
-			break;
-		case "kunden": 	main.home.setVisible(false);
-					   	main.frame.add(main.kunden,BorderLayout.CENTER);
-					   	main.kunden.setVisible(true);
 			break;
 		case "proback":	main.produkt.setVisible(false);
 						main.home.setVisible(true);
@@ -53,11 +57,8 @@ public class Controller implements ActionListener{
 						 main.home.setVisible(true);
 						break;
 
-		case "person":  main.home.setVisible(false);
-						main.frame.add(main.person,BorderLayout.CENTER);
-			 			main.person.setVisible(true);
-						break;
 		default:
+						System.out.println("Keine weiterleitung möglich");
 			break;
 		}
 		

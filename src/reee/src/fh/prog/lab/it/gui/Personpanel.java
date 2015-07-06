@@ -37,7 +37,7 @@ public class Personpanel extends JPanel{
 		table.setPreferredScrollableViewportSize(new Dimension((int)(width/2),HEIGHT-100));
 		pane = new JScrollPane(table);
 		add(pane);
-
+		table.setAutoCreateRowSorter(true);
 		back.setActionCommand("proback");
 		back.addActionListener(listener);
 		add(back);

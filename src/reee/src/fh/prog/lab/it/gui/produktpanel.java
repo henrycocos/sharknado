@@ -48,6 +48,7 @@ public class produktpanel extends JPanel{
 		pane = new JScrollPane(table);
 		add(pane);
 
+		table.setAutoCreateRowSorter(true);
 		back.setActionCommand("proback");
 		back.addActionListener(listener);
 		add(back);

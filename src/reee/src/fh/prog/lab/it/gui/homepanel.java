@@ -44,12 +44,12 @@ public class homepanel extends JPanel{
 		jvertrieb.setActionCommand("kunden");
 		jvertrieb.addActionListener(listener);
 				
-		jbestellung.setActionCommand("bestellung");
-		jbestellung.addActionListener(listener);
-		
-		jmanage.setActionCommand("manage");
-		jmanage.addActionListener(listener);
-		
+//		jbestellung.setActionCommand("bestellung");
+//		jbestellung.addActionListener(listener);
+//		
+//		jmanage.setActionCommand("manage");
+//		jmanage.addActionListener(listener);
+//		
 		jperson.setActionCommand("person");
 		jperson.addActionListener(listener);
 		
