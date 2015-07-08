@@ -56,6 +56,8 @@ public class Controller implements ActionListener{
 		case "persback": main.person.setVisible(false);
 						 main.home.setVisible(true);
 						break;
+		case "search":  System.out.println("Ja"); 
+						break;
 
 		default:
 						System.out.println("Keine weiterleitung möglich");
