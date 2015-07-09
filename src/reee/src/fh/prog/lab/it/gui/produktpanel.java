@@ -41,6 +41,7 @@ public class produktpanel extends JPanel{
 	TableRowSorter<TableModel> sorter;
 	ActionListener al;
 	String id,name;
+	RowFilter<TableModel, Object> rf;
 	
 	public produktpanel(ActionListener listener) throws SQLException{
 		System.out.println("Produktpanel wurde gestartet");
@@ -53,25 +54,24 @@ public class produktpanel extends JPanel{
 		table.setPreferredScrollableViewportSize(new Dimension((int)(width/2),HEIGHT-100));
 		table.setRowSorter(sorter);
 		pane = new JScrollPane(table);
+		table.setAutoCreateRowSorter(true);
 		al = new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) throws NullPointerException {
-				name = searchpanel.name.getText();
-				try {
+				name = searchpanel.tname.getText();
+				System.out.println(name);
 					if (name.length() == 0) {
 						sorter.setRowFilter(null);
 						System.out.println("Leer:" + name);
 					} else {
-						sorter.setRowFilter(RowFilter.regexFilter(name));
-						System.out.println(name);
-					}
-					System.out.println(name);
-				
-				} catch (NullPointerException e2) {
+						try{
+							rf = RowFilter.regexFilter(name);
+							System.out.println("Sortiert nach: " + name);
+							
+				} 	catch (NullPointerException e2) {
 					System.out.println("NullPointer Exception");
+					}
 				}
-				
 				}
 		};
 		searchpanel = new search(al);

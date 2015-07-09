@@ -17,6 +17,7 @@ public class search extends JPanel{
 	JLabel name,id;
 	JTextField tname,tid;
 	JButton sbutton;
+	String sname;
 	public search(ActionListener listener){
 		setLayout(new GridLayout(2,4));
 		name = new JLabel("Name:");
