@@ -26,6 +26,7 @@ public class Personpanel extends JPanel{
 	ImageIcon iconback = new ImageIcon("./lib/back-button.png");
 	JButton back = new JButton(iconback);
 	newselect select = new newselect();
+	String name = null;
 	public Personpanel(ActionListener listener) throws SQLException{
 		System.out.println("Produktpanel wurde gestartet");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -33,7 +34,7 @@ public class Personpanel extends JPanel{
 		double height = screenSize.getHeight();
 		this.setSize((int)(width/2), (int)(height/100)*70);
 		setLayout(new GridLayout(4,2));
-		table = new JTable(new table("PerKus"));
+		table = new JTable(new table("PerKus",null));
 		table.setPreferredScrollableViewportSize(new Dimension((int)(width/2),HEIGHT-100));
 		pane = new JScrollPane(table);
 		add(pane);

@@ -15,15 +15,20 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 import javax.swing.RowSorter.SortKey;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import fh.prog.lab.it.samples.dbServices.DBServicesInvoker;
 import fh.prog.lab.it.samples.dbServices.newselect;
 
 public class produktpanel extends JPanel{
@@ -32,7 +37,8 @@ public class produktpanel extends JPanel{
 	 */
 	Point klick;
 	private static final long serialVersionUID = 1L;
-	JTable table;
+	table table;
+	JTable jtable;
 	JScrollPane pane;
 	search searchpanel;
 	ImageIcon iconback = new ImageIcon("./lib/back-button.png");
@@ -50,27 +56,39 @@ public class produktpanel extends JPanel{
 		double height = screenSize.getHeight();
 		this.setSize((int)(width/2), (int)(height/100)*70);
 		setLayout(new GridLayout(4,2));
-		table = new JTable(new table("Produkt"));
+		jtable = new JTable(table);
+		table = new table("Produkt",name);
 		table.setPreferredScrollableViewportSize(new Dimension((int)(width/2),HEIGHT-100));
-		table.setRowSorter(sorter);
-		pane = new JScrollPane(table);
+		sorter = new TableRowSorter<TableModel>(table.getModel());
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		pane = new JScrollPane(jtable);
 		table.setAutoCreateRowSorter(true);
+		
+		
 		al = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) throws NullPointerException {
 				name = searchpanel.tname.getText();
 				System.out.println(name);
 					if (name.length() == 0) {
-						sorter.setRowFilter(null);
 						System.out.println("Leer:" + name);
 					} else {
 						try{
-							rf = RowFilter.regexFilter(name);
 							System.out.println("Sortiert nach: " + name);
+							table = new table("Produkt", name);
+							table.fireTableDataChanged();
+							table.repaint();
+							
+							
 							
 				} 	catch (NullPointerException e2) {
-					System.out.println("NullPointer Exception");
-					}
+					JOptionPane.showMessageDialog(null, e2);;
+					} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1);
+					e1.printStackTrace();
+				}
+						sorter.setRowFilter(RowFilter.regexFilter(name, 1));
+						System.out.println(sorter.getRowFilter().toString());
 				}
 				}
 		};
@@ -88,6 +106,7 @@ public class produktpanel extends JPanel{
 	public boolean isCellEditable(int row, int col){
 		return false;
 	}
+
 
 
 	

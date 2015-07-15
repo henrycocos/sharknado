@@ -46,7 +46,7 @@ public class newselect {
 		return name; 
 	}
 	
-	public Vector<Vector<String>> getData(String table) throws SQLException{
+	public Vector<Vector<String>> getData(String table, String name) throws SQLException{
 		Vector<String> spalte = new Vector<String>();
 		Vector<Vector<String>> gesamt = new Vector<Vector<String>>();
 
@@ -55,6 +55,11 @@ public class newselect {
 		Connection conn = DriverManager.getConnection(url + dbName, userName, password);
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("select * from " + table);
+		if (name == null) {
+			rs = stmt.executeQuery("select * from " + table);
+		} else {
+			rs = stmt.executeQuery("select * from " + table + " where Name like '%" + name + "%'");
+		}
 			try {
 				ResultSetMetaData data = rs.getMetaData();
 				colCounter = data.getColumnCount();

@@ -21,6 +21,7 @@ public class kundenpanel extends JPanel{
 	JButton back = new JButton(iconback);
 	JTable table = new JTable();
 	newselect select = new newselect();
+	String name = null;
 	
 	public kundenpanel(ActionListener listener) throws SQLException {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -29,7 +30,7 @@ public class kundenpanel extends JPanel{
 		this.setSize((int)(width/2), (int)(height/100)*70);
 		setLayout(new GridLayout(4,2));
 		
-		table = new JTable(select.getData("fikus"), select.getColumnNames("fikus"));
+		table = new JTable(select.getData("fikus",name), select.getColumnNames("fikus"));
 		add(new JScrollPane((table)));
 		back.setActionCommand("kuback");
 		back.addActionListener(listener);
