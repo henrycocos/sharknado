@@ -15,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import fh.prog.lab.it.samples.dbServices.newselect;
 
@@ -27,6 +30,7 @@ public class Personpanel extends JPanel{
 	JButton back = new JButton(iconback);
 	newselect select = new newselect();
 	String name = null;
+	TableRowSorter<TableModel> sorter; 
 	public Personpanel(ActionListener listener) throws SQLException{
 		System.out.println("Produktpanel wurde gestartet");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -43,5 +47,16 @@ public class Personpanel extends JPanel{
 		back.addActionListener(listener);
 		add(back);
 	}
-	
+	private void newFilter(String id,String name){
+		RowFilter<? super TableModel, ? super Integer> rf = null;
+	    //If current expression doesn't parse, don't update.
+	    try {
+	        rf = RowFilter.regexFilter(".*"+id+".*", 0);
+	        rf = RowFilter.regexFilter(name, 1);
+	    } catch (java.util.regex.PatternSyntaxException e) {
+	    	e.printStackTrace();
+	        return;
+	    }
+	    sorter.setRowFilter(rf);
+	}
 }

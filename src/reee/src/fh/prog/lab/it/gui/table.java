@@ -55,12 +55,4 @@ public class table extends AbstractTableModel{
 		
 	}
 
-	public TableModel getModel() {
-		return getModel();
-	}
-
-	public void repaint() {
-		repaint();
-		
-	}
 }

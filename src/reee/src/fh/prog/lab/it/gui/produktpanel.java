@@ -1,6 +1,5 @@
 package fh.prog.lab.it.gui;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -10,44 +9,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Vector;
+import java.util.Comparator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
-import javax.swing.RowFilter.Entry;
-import javax.swing.RowSorter.SortKey;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import fh.prog.lab.it.samples.dbServices.DBServicesInvoker;
 import fh.prog.lab.it.samples.dbServices.newselect;
 
 public class produktpanel extends JPanel{
-	/**
-	 * 
-	 */
 	Point klick;
 	private static final long serialVersionUID = 1L;
-	table table;
-	JTable jtable;
+	JTable table;
 	JScrollPane pane;
-	search searchpanel;
 	ImageIcon iconback = new ImageIcon("./lib/back-button.png");
 	JButton back = new JButton(iconback);
 	newselect select = new newselect();
-	TableRowSorter<TableModel> sorter;
-	ActionListener al;
-	String id,name;
-	RowFilter<TableModel, Object> rf;
+	String name = null;
+	search searchpanel;
+	TableRowSorter<TableModel> sorter; 
 	
 	public produktpanel(ActionListener listener) throws SQLException{
 		System.out.println("Produktpanel wurde gestartet");
@@ -56,59 +42,41 @@ public class produktpanel extends JPanel{
 		double height = screenSize.getHeight();
 		this.setSize((int)(width/2), (int)(height/100)*70);
 		setLayout(new GridLayout(4,2));
-		jtable = new JTable(table);
-		table = new table("Produkt",name);
-		table.setPreferredScrollableViewportSize(new Dimension((int)(width/2),HEIGHT-100));
-		sorter = new TableRowSorter<TableModel>(table.getModel());
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		pane = new JScrollPane(jtable);
-		table.setAutoCreateRowSorter(true);
-		
-		
-		al = new ActionListener() {
+		searchpanel = new search(new ActionListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent e) throws NullPointerException {
-				name = searchpanel.tname.getText();
-				System.out.println(name);
-					if (name.length() == 0) {
-						System.out.println("Leer:" + name);
-					} else {
-						try{
-							System.out.println("Sortiert nach: " + name);
-							table = new table("Produkt", name);
-							table.fireTableDataChanged();
-							table.repaint();
-							
-							
-							
-				} 	catch (NullPointerException e2) {
-					JOptionPane.showMessageDialog(null, e2);;
-					} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1);
-					e1.printStackTrace();
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == searchpanel.sbutton) {
+					String name = searchpanel.tname.getText();
+					String id = searchpanel.tid.getText();
+					System.out.println("ID: " + id + "NAME: " + name);
+					newFilter(id, name);
 				}
-						sorter.setRowFilter(RowFilter.regexFilter(name, 1));
-						System.out.println(sorter.getRowFilter().toString());
-				}
-				}
-		};
-		searchpanel = new search(al);
+				
+			}
+		});
+		table = new JTable(new table("Produkt",null));
+		table.setPreferredScrollableViewportSize(new Dimension((int)(width/2),HEIGHT-100));
+		pane = new JScrollPane(table);
 		add(searchpanel);
 		add(pane);
 		table.setAutoCreateRowSorter(true);
+	    sorter  = new TableRowSorter<TableModel>(table.getModel());
+	    table.setRowSorter(sorter);
 		back.setActionCommand("proback");
 		back.addActionListener(listener);
 		add(back);
 	}
-	
-	
-	
-	public boolean isCellEditable(int row, int col){
-		return false;
+	private void newFilter(String id,String name){
+		RowFilter<? super TableModel, ? super Integer> rf = null;
+	    //If current expression doesn't parse, don't update.
+	    try {
+	        rf = RowFilter.regexFilter(".*"+id+".*", 0);
+	        rf = RowFilter.regexFilter(name, 1);
+	    } catch (java.util.regex.PatternSyntaxException e) {
+	    	e.printStackTrace();
+	        return;
+	    }
+	    sorter.setRowFilter(rf);
 	}
-
-
-
-	
-
 }
