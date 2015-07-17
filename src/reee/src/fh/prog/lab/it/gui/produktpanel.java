@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -71,8 +73,10 @@ public class produktpanel extends JPanel{
 		RowFilter<? super TableModel, ? super Integer> rf = null;
 	    //If current expression doesn't parse, don't update.
 	    try {
-	        rf = RowFilter.regexFilter(".*"+id+".*", 0);
-	        rf = RowFilter.regexFilter(name, 1);
+	    	List<RowFilter<Object,Object>> rfs = new ArrayList<RowFilter<Object,Object>>(2);
+	    	rfs.add(RowFilter.regexFilter(".*"+id+".*", 0));
+	    	rfs.add(RowFilter.regexFilter(".*"+name+".*", 1));
+	    	rf = RowFilter.andFilter(rfs);
 	    } catch (java.util.regex.PatternSyntaxException e) {
 	    	e.printStackTrace();
 	        return;
